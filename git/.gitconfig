@@ -1,0 +1,7 @@
+[user]
+	email = tommi.a.haapanen@gmail.com
+	name = PuuperttiRuma
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
