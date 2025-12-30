@@ -64,17 +64,22 @@ binds {
     // === System & Overview ===
     Mod+D                  { spawn "niri" "msg" "action" "toggle-overview"; }
     Mod+Tab                repeat=false { toggle-overview; }
-    Mod+Shift+Slash        { show-hotkey-overlay; }
+    Mod+Shift+Plus         { show-hotkey-overlay; }
 
     // === Application Launchers ===
     Mod+Return             hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
     Mod+Space              hotkey-overlay-title="Application Launcher" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+    // Mod+Space              hotkey-overlay-title="Open App Launcher: wofi" { spawn-sh "wofi"; }
+    Mod+B                  hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
+    Mod+E                  hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
     Mod+V                  hotkey-overlay-title="Clipboard Manager" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
     Mod+M                  hotkey-overlay-title="Task Manager" { spawn "dms" "ipc" "call" "processlist" "toggle"; }
     Mod+N                  hotkey-overlay-title="Notification Center" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
     Mod+Shift+N            hotkey-overlay-title="Notepad" { spawn "dms" "ipc" "call" "notepad" "toggle"; }
     // Mod+Y               hotkey-overlay-title="Browse Wallpapers" { spawn "dms" "ipc" "call" "dankdash" "wallpaper"; }
     // Mod+Comma           hotkey-overlay-title="Settings" { spawn "dms" "ipc" "call" "settings" "toggle"; }
+    // TODO: Open Nvim in dotfiles folder
+    // TODO: Open Nvim
 
     // === Security ===
     Mod+Alt+L              hotkey-overlay-title="Lock Screen" { spawn "dms" "ipc" "call" "lock" "lock"; }
@@ -99,67 +104,118 @@ binds {
     Mod+Shift+V            { switch-focus-between-floating-and-tiling; }
     Mod+W                  { toggle-column-tabbed-display; }
 
-    // === Focus Navigation ===
-    Mod+Left               { focus-column-left; }
-    // Mod+Down               { focus-window-down; }
-    // Mod+Up                 { focus-window-up; }
-    Mod+Right              { focus-column-right; }
-    Mod+H                  { focus-column-left; }
-    Mod+J                  { focus-window-down; }
-    Mod+K                  { focus-window-up; }
-    Mod+L                  { focus-column-right; }
+    // === Principles for navigation ===
+    // Focus: 
+    //   Pressing MOD and movement keys (HJLK or Arrow Keys) will
+    //   move focus around. The focus will move from monitor to
+    //   another, if there is anymore columns to that direction
+    //   OR Ctrl is pressed. Upwards movement works the same, but
+    //   with workspaces. MOD alone moves in column, Ctrl jumps to
+    //   next workspace.
+    // Moving Windows:
+    //   Pressing SHIFT will always modify the state of the screen,
+    //   not pressing SHIFT will not.
 
-    // === Window Movement ===
-    Mod+Ctrl+Left          { move-column-left; }
-    // Mod+Ctrl+Down          { move-window-down; }
-    // Mod+Ctrl+Up            { move-window-up; }
-    Mod+Ctrl+Right         { move-column-right; }
-    Mod+Ctrl+H             { move-column-left; }
-    Mod+Ctrl+J             { move-window-down; }
-    Mod+Ctrl+K             { move-window-up; }
-    Mod+Ctrl+L             { move-column-right; }
+    // === Navigate Windows ===
+    Mod+Left               { focus-column-or-monitor-left; }
+    Mod+Down               { focus-window-or-workspace-down; }
+    Mod+Up                 { focus-window-or-workspace-up; }
+    Mod+Right              { focus-column-or-monitor-right; }
+    Mod+H                  { focus-column-or-monitor-left; }
+    Mod+J                  { focus-window-or-workspace-down; }
+    Mod+K                  { focus-window-or-workspace-up; }
+    Mod+L                  { focus-column-or-monitor-right; }
 
-    // === Column Navigation ===
+    // === Navigate Workspaces and Monitors ===
+    Mod+Ctrl+Left          { focus-monitor-left; }
+    Mod+Ctrl+Down          { focus-workspace-down; }
+    Mod+Ctrl+Up            { focus-workspace-up; }
+    Mod+Ctrl+Right         { focus-monitor-right; }
+    Mod+Ctrl+H             { focus-monitor-left; }
+    Mod+Ctrl+J             { focus-workspace-down; }
+    Mod+Ctrl+K             { focus-workspace-up; }
+    Mod+Ctrl+L             { focus-monitor-right; }
+    Mod+Page_Down          { focus-workspace-down; }
+    Mod+Page_Up            { focus-workspace-up; }
+
+    // === Navigate Numbered Workspaces ===
+    Mod+1                  { focus-workspace 1; }
+    Mod+2                  { focus-workspace 2; }
+    Mod+3                  { focus-workspace 3; }
+    Mod+4                  { focus-workspace 4; }
+    Mod+5                  { focus-workspace 5; }
+    Mod+6                  { focus-workspace 6; }
+    Mod+7                  { focus-workspace 7; }
+    Mod+8                  { focus-workspace 8; }
+    Mod+9                  { focus-workspace 9; }
+
+    // === Navigate Columns ===
     Mod+Home               { focus-column-first; }
     Mod+End                { focus-column-last; }
     Mod+Ctrl+Home          { move-column-to-first; }
     Mod+Ctrl+End           { move-column-to-last; }
 
-    // === Monitor Navigation ===
-    Mod+Shift+Left         { focus-monitor-left; }
-    //Mod+Shift+Down         { focus-monitor-down; }
-    //Mod+Shift+Up           { focus-monitor-up; }
-    Mod+Shift+Right        { focus-monitor-right; }
-    Mod+Shift+H            { focus-monitor-left; }
-    Mod+Shift+J            { focus-monitor-down; }
-    Mod+Shift+K            { focus-monitor-up; }
-    Mod+Shift+L            { focus-monitor-right; }
+    // === Move Windows ===
+    Mod+Shift+Left         { move-column-left; }
+    Mod+Shift+Down         { move-window-down; }
+    Mod+Shift+Up           { move-window-up; }
+    Mod+Shift+Right        { move-column-right; }
+    Mod+Shift+H            { move-column-left; }
+    Mod+Shift+J            { move-window-down; }
+    Mod+Shift+K            { move-window-up; }
+    Mod+Shift+L            { move-column-right; }
 
-    // === Move to Monitor ===
+    // === Move Windows to Monitor or Workspace ===
     Mod+Shift+Ctrl+Left    { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Down    { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+Up      { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Down    { move-column-to-workspace-down; }
+    Mod+Shift+Ctrl+Up      { move-column-to-workspace-up; }
     Mod+Shift+Ctrl+Right   { move-column-to-monitor-right; }
     Mod+Shift+Ctrl+H       { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+J       { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K       { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+J       { move-column-to-workspace-down; }
+    Mod+Shift+Ctrl+K       { move-column-to-workspace-up; }
     Mod+Shift+Ctrl+L       { move-column-to-monitor-right; }
 
-    // === Workspace Navigation ===
-    Mod+Page_Down          { focus-workspace-down; }
-    Mod+Page_Up            { focus-workspace-up; }
-    Mod+Down               { focus-workspace-down; }
-    Mod+Up                 { focus-workspace-up; }
-    Mod+Ctrl+Down          { move-column-to-workspace-down; }
-    Mod+Ctrl+Up            { move-column-to-workspace-up; }
-    // Mod+Ctrl+U            { move-column-to-workspace-down; }
-    // Mod+Ctrl+I            { move-column-to-workspace-up; }
+    // === Move Windows to Numbered Workspaces ===
+    Mod+Shift+Ctrl+1             { move-column-to-workspace 1; }
+    Mod+Shift+Ctrl+2             { move-column-to-workspace 2; }
+    Mod+Shift+Ctrl+3             { move-column-to-workspace 3; }
+    Mod+Shift+Ctrl+4             { move-column-to-workspace 4; }
+    Mod+Shift+Ctrl+5             { move-column-to-workspace 5; }
+    Mod+Shift+Ctrl+6             { move-column-to-workspace 6; }
+    Mod+Shift+Ctrl+7             { move-column-to-workspace 7; }
+    Mod+Shift+Ctrl+8             { move-column-to-workspace 8; }
+    Mod+Shift+Ctrl+9             { move-column-to-workspace 9; }
 
-    // === Move Workspaces ===
-    Mod+Ctrl+Page_Down     { move-workspace-down; }
-    Mod+Ctrl+Page_Up       { move-workspace-up; }
-    // Mod+Shift+U           { move-workspace-down; }
-    // Mod+Shift+I           { move-workspace-up; }
+    // === Move Whole Workspace ===
+    Mod+Shift+Ctrl+Page_Down     { move-workspace-down; }
+    Mod+Shift+Ctrl+Page_Up       { move-workspace-up; }
+    Mod+Shift+Ctrl+Comma         { move-workspace-to-monitor-left; }
+    Mod+Shift+Ctrl+Period        { move-workspace-to-monitor-right; }
+    // move-workspace-to-index
+
+    // === Column Management ===
+    Mod+Shift+Alt+Left     { consume-or-expel-window-left; }
+    Mod+Shift+Alt+Right    { consume-or-expel-window-right; }
+    Mod+Alt+Left           { switch-preset-column-width-back; }
+    Mod+Alt+Right          { switch-preset-column-width; }
+    Mod+Alt+Up             { switch-preset-window-height-back; }
+    Mod+Alt+Down           { switch-preset-window-height; }
+
+    // === Sizing & Layout ===
+    Mod+R                  { switch-preset-column-width; }
+    Mod+Shift+R            { switch-preset-window-height; }
+    Mod+Ctrl+R             { reset-window-height; }
+    Mod+Ctrl+F             { expand-column-to-available-width; }
+    Mod+C                  { center-column; }
+    Mod+Ctrl+C             { center-visible-columns; }
+
+    // === Manual Sizing ===
+    // Mod+Minus             { set-column-width "-10%"; }
+    // Mod+Plus              { set-column-width "+10%"; }
+    // Mod+Shift+Minus       { set-window-height "-10%"; }
+    // Mod+Shift+Plus        { set-window-height "+10%"; }
+    // Mod+Alt+Left           { set-column-width "-10%"; }
+    // Mod+Alt+Right          { set-column-width "+10%"; }
 
     // === Mouse Wheel Navigation ===
     Mod+WheelScrollDown            cooldown-ms=150 { focus-workspace-down; }
@@ -176,51 +232,6 @@ binds {
     Mod+Shift+WheelScrollUp        { focus-column-left; }
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
-
-    // === Numbered Workspaces ===
-    Mod+1                  { focus-workspace 1; }
-    Mod+2                  { focus-workspace 2; }
-    Mod+3                  { focus-workspace 3; }
-    Mod+4                  { focus-workspace 4; }
-    Mod+5                  { focus-workspace 5; }
-    Mod+6                  { focus-workspace 6; }
-    Mod+7                  { focus-workspace 7; }
-    Mod+8                  { focus-workspace 8; }
-    Mod+9                  { focus-workspace 9; }
-
-    // === Move to Numbered Workspaces ===
-    Mod+Ctrl+1             { move-column-to-workspace 1; }
-    Mod+Ctrl+2             { move-column-to-workspace 2; }
-    Mod+Ctrl+3             { move-column-to-workspace 3; }
-    Mod+Ctrl+4             { move-column-to-workspace 4; }
-    Mod+Ctrl+5             { move-column-to-workspace 5; }
-    Mod+Ctrl+6             { move-column-to-workspace 6; }
-    Mod+Ctrl+7             { move-column-to-workspace 7; }
-    Mod+Ctrl+8             { move-column-to-workspace 8; }
-    Mod+Ctrl+9             { move-column-to-workspace 9; }
-
-    // === Column Management ===
-    // Mod+BracketLeft       { consume-or-expel-window-left; }
-    // Mod+BracketRight      { consume-or-expel-window-right; }
-    Mod+Comma              { consume-or-expel-window-left; }
-    Mod+Period             { consume-or-expel-window-right; }
-    Mod+Minus              { expel-window-from-column; }
-
-    // === Sizing & Layout ===
-    Mod+R                  { switch-preset-column-width; }
-    Mod+Shift+R            { switch-preset-window-height; }
-    Mod+Ctrl+R             { reset-window-height; }
-    Mod+Ctrl+F             { expand-column-to-available-width; }
-    Mod+C                  { center-column; }
-    Mod+Ctrl+C             { center-visible-columns; }
-
-    // === Manual Sizing ===
-    // Mod+Minus             { set-column-width "-10%"; }
-    // Mod+Plus              { set-column-width "+10%"; }
-    // Mod+Shift+Minus       { set-window-height "-10%"; }
-    // Mod+Shift+Plus        { set-window-height "+10%"; }
-    Mod+Alt+Left           { set-column-width "-10%"; }
-    Mod+Alt+Right          { set-column-width "+10%"; }
 
     // === Screenshots ===
     XF86Launch1            { screenshot; }
