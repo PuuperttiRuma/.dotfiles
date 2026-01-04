@@ -14,7 +14,6 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Brew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-
 # Oh-My-Posh Prompt Line
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
 
@@ -68,6 +67,9 @@ alias vim='nvim'
 # alias c='clear'
 
 # Shell integrations
-eval "$(fzf --zsh)"
-# source <(fzf --zsh)
+source <(fzf --zsh)
 eval "$(zoxide init --cmd cd zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
