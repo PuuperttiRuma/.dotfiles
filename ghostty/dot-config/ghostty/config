@@ -1,5 +1,8 @@
 # Tip: Hot reload config with ctrl+shift+,
 
+# Theme
+theme = dark:Nordfox,light:Dayfox
+
 # Font Configuration
 font-size = 11
 #font-family = "Droid SansM Nerd Font" 
@@ -59,4 +62,4 @@ keybind = shift+enter=text:\n
 gtk-single-instance = true
 
 # Dank color generation
-config-file = ./config-dankcolors
+# config-file = ./config-dankcolors
