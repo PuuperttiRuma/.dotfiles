@@ -11,3 +11,6 @@ zoxide init fish --cmd cd | source
 
 # Set up fzf key bindings
 fzf --fish | source
+
+# Generated for envman. Do not edit.
+test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
