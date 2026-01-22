@@ -11,10 +11,6 @@ config-notification {
 
 input {
     keyboard {
-        xkb {
-            layout "fi"
-	    options "caps:escape"
-        }
         numlock // Enable numlock on startup
     }
     mouse {
@@ -39,7 +35,7 @@ input {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 
 output "DP-3" {
-	mode "1920x1080@143.855" // Set resolution and refresh rate
+	mode "1920x1080@120" // Set resolution and refresh rate
 	position x=0 y=0
 	scale 1 // No scaling (use 2 for HiDPI
 	focus-at-startup
@@ -104,18 +100,6 @@ binds {
     Mod+Shift+V            { switch-focus-between-floating-and-tiling; }
     Mod+W                  { toggle-column-tabbed-display; }
 
-    // === Principles for navigation ===
-    // Focus: 
-    //   Pressing MOD and movement keys (HJLK or Arrow Keys) will
-    //   move focus around. The focus will move from monitor to
-    //   another, if there is anymore columns to that direction
-    //   OR Ctrl is pressed. Upwards movement works the same, but
-    //   with workspaces. MOD alone moves in column, Ctrl jumps to
-    //   next workspace.
-    // Moving Windows:
-    //   Pressing SHIFT will always modify the state of the screen,
-    //   not pressing SHIFT will not.
-
     // === Navigate Windows ===
     Mod+Left               { focus-column-or-monitor-left; }
     Mod+Down               { focus-window-or-workspace-down; }
@@ -155,6 +139,7 @@ binds {
     Mod+Ctrl+Home          { move-column-to-first; }
     Mod+Ctrl+End           { move-column-to-last; }
 
+    // Pressing SHIFT will move active window with focus
     // === Move Windows ===
     Mod+Shift+Left         { move-column-left; }
     Mod+Shift+Down         { move-window-down; }
@@ -186,13 +171,26 @@ binds {
     Mod+Shift+Ctrl+8             { move-column-to-workspace 8; }
     Mod+Shift+Ctrl+9             { move-column-to-workspace 9; }
 
+    // Pressing all of Shift+Ctrl+Alt will move whole Workspace
     // === Move Whole Workspace ===
-    Mod+Shift+Ctrl+Page_Down     { move-workspace-down; }
-    Mod+Shift+Ctrl+Page_Up       { move-workspace-up; }
-    Mod+Shift+Ctrl+Comma         { move-workspace-to-monitor-left; }
-    Mod+Shift+Ctrl+Period        { move-workspace-to-monitor-right; }
-    // move-workspace-to-index
+    Mod+Shift+Ctrl+Alt+Down      { move-workspace-down; }
+    Mod+Shift+Ctrl+Alt+Up        { move-workspace-up; }
+    Mod+Shift+Ctrl+Alt+Left      { move-workspace-to-monitor-left; }
+    Mod+Shift+Ctrl+Alt+Right     { move-workspace-to-monitor-right; }
 
+    // === Move Whole Workspace to Index ===
+    Mod+Shift+Ctrl+Alt+1             { move-column-to-workspace 1; }
+    Mod+Shift+Ctrl+Alt+2             { move-column-to-workspace 2; }
+    Mod+Shift+Ctrl+Alt+3             { move-column-to-workspace 3; }
+    Mod+Shift+Ctrl+Alt+4             { move-column-to-workspace 4; }
+    Mod+Shift+Ctrl+Alt+5             { move-column-to-workspace 5; }
+    Mod+Shift+Ctrl+Alt+6             { move-column-to-workspace 6; }
+    Mod+Shift+Ctrl+Alt+7             { move-column-to-workspace 7; }
+    Mod+Shift+Ctrl+Alt+8             { move-column-to-workspace 8; }
+    Mod+Shift+Ctrl+Alt+9             { move-column-to-workspace 9; }
+
+
+    // Pressing ALT will modify window size
     // === Column Management ===
     Mod+Shift+Alt+Left     { consume-or-expel-window-left; }
     Mod+Shift+Alt+Right    { consume-or-expel-window-right; }
@@ -259,9 +257,10 @@ layout {
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
+        proportion 1.0
     }
 
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.66667; }
     // default-column-width {}
      
     border {
@@ -396,13 +395,12 @@ window-rule {
 window-rule {
     // Open in a floating window
     match title="Calculator"
-    match title="Characters"
+    match title="Characters"// Gnome characters
     match app-id=r#"^gnome-calculator$"#
     match app-id=r#"^galculator$"#
     match app-id=r#"^blueman-manager$"#
     match app-id=r#"^org\.gnome\.Nautilus$"#
     match app-id=r#"^xdg-desktop-portal$"#
-    // Gnome characters
     // match app-id=r#"^steam$"#
     open-floating true
 }
