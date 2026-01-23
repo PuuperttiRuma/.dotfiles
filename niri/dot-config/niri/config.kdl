@@ -88,6 +88,10 @@ binds {
     XF86AudioMute          allow-when-locked=true { spawn "dms" "ipc" "call" "audio" "mute"; }
     XF86AudioMicMute       allow-when-locked=true { spawn "dms" "ipc" "call" "audio" "micmute"; }
 
+    // === Media Controls ===
+    XF86AudioPrev       allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86AudioNext       allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPlay       allow-when-locked=true { spawn "playerctl" "play-pause"; }
     // === Brightness Controls ===
     XF86MonBrightnessUp    allow-when-locked=true { spawn "dms" "ipc" "call" "brightness" "increment" "5" ""; }
     XF86MonBrightnessDown  allow-when-locked=true { spawn "dms" "ipc" "call" "brightness" "decrement" "5" ""; }
