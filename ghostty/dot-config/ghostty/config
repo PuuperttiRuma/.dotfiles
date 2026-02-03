@@ -42,6 +42,11 @@ keybind = ctrl+shift+alt+arrow_left=resize_split:left,10
 keybind = ctrl+shift+alt+arrow_right=resize_split:right,10
 keybind = ctrl+shift+alt+arrow_up=resize_split:up,10
 
+keybind = ctrl+alt+h=goto_split:left
+keybind = ctrl+alt+j=goto_split:down
+keybind = ctrl+alt+k=goto_split:up
+keybind = ctrl+alt+l=goto_split:right
+
 keybind = ctrl+plus=increase_font_size:1
 keybind = ctrl+minus=decrease_font_size:1
 keybind = ctrl+zero=reset_font_size
